@@ -37,7 +37,7 @@ exports.decodeLog = functions.https.onRequest( async (request, response) => {
       response.send("500")
     })
 
-    response.send("200")
+    response.status("200").send(decoded.tokenId)
 });
 
 const inputs = [
