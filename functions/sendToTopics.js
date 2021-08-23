@@ -8,8 +8,9 @@ if (admin.apps.length === 0) {
 exports.sendToTopics = functions.https.onRequest(async (request, response) => {
     const {
         title,
-        topic,
         content,
+        topic,
+        docId,
     } = request.body
 
     functions.logger.log(
@@ -23,7 +24,7 @@ exports.sendToTopics = functions.https.onRequest(async (request, response) => {
             body: content,
         },
         data: {
-            docId: topic,
+            docId,
             messageType: "topic"
         },
         topic
