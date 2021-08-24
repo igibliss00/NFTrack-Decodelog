@@ -48,13 +48,13 @@ exports.sendStatusNotification = functions.https.onRequest(async (request, respo
         notification: {
             title: senderProfile.displayName,
             body: content,
-            icon: senderProfile.photoURL,
+            // icon: senderProfile.photoURL == nil ? "" : senderProfile.photoURL,
             sound: "default",
         },
         data: {
             uid: senderProfile.uid,
             displayName: senderProfile.displayName,
-            photoURL: senderProfile.photoURL,
+            // photoURL: senderProfile.photoURL == nil ? "" : senderProfile.photoURL,
             docID,
             messageType: "status"
         }
