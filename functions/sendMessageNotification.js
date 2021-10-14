@@ -83,13 +83,13 @@ exports.sendMessageNotification = functions.firestore
                 if (error.code === "messaging/invalid-registration-token" ||
                         error.code === "messaging/registration-token-not-registered") {
                     // tokensToRemove.push(tokensSnapshot.ref.child(tokens[index]).remove());
-                    const updatedTokens = deviceTokens((token) => token !== deviceTokens[index]);
+                    const updatedTokens = deviceTokens.filter((token) => token !== deviceTokens[index]);
                     console.log("updatedTokens", updatedTokens);
                     ref.update({
                         token: updatedTokens,
                     })
-                    .catch(function(err) {
-                        console.error("Error removing tokens", err);
+                    .catch(function(e) {
+                        console.error("Error removing tokens", e);
                     });
                 }
             }
