@@ -81,15 +81,17 @@ exports.sendStatusNotification = functions.https.onRequest(async (request, respo
                     error.code === "messaging/registration-token-not-registered") {
                 const updatedTokens = deviceTokens.filter((token) => token !== deviceTokens[index]);
                 console.log("updatedTokens", updatedTokens);
-                ref.update({
-                    token: updatedTokens,
-                })
-                .catch(function(e) {
+                try {
+                    admin.firestore().collection("deviceToken").doc(recipient).set({
+                        token: updatedTokens
+                    })
+                } catch (e) {
                     console.error("Error removing tokens", e);
-                });
+                }
             }
         }
     });
 
-    response.status(200)
+    // response.status(200)
+    response.status(200).send();
 });

@@ -85,14 +85,16 @@ exports.sendMessageNotification = functions.firestore
                     // tokensToRemove.push(tokensSnapshot.ref.child(tokens[index]).remove());
                     const updatedTokens = deviceTokens.filter((token) => token !== deviceTokens[index]);
                     console.log("updatedTokens", updatedTokens);
-                    ref.update({
-                        token: updatedTokens,
-                    })
-                    .catch(function(e) {
+                    
+                    try {
+                        admin.firestore().collection("deviceToken").doc(recipient).update({
+                            token: updatedTokens
+                        })
+                    } catch (e) {
                         console.error("Error removing tokens", e);
-                    });
+                    }
                 }
             }
         });
-        return;
+        return
     });
